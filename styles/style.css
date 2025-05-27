@@ -1,0 +1,367 @@
+html, body {
+    margin: 0; /* Remove margens padrão do navegador */
+    padding: 0; /* Remove padding padrão do navegador */
+    box-sizing: border-box; /* Garante que padding e borda sejam incluídos na largura/altura do elemento */
+}
+*, *::before, *::after {
+    box-sizing: inherit; /* Garante que todos os elementos herdem o box-sizing */
+}
+body {
+    background: rgb(34, 34, 34); /* forma correta de usar o rgb(r,g,b), ou usar HEX */
+    color: white;
+    font-family: poppinsregular; /* Certifique-se de que a fonte está sendo carregada corretamente */
+    display: flex; /* Transforma o body em um container flexível */
+    flex-direction: column; /* Empilha os filhos (header, main, footer) em coluna */
+    min-height: 100vh; /* Garante que o body ocupe no mínimo toda a altura da tela */
+}
+
+header {
+    position: relative; /* ESSENCIAL para o pseudo-elemento ::after se posicionar em relação ao header */
+    display: flex; /*Método mais facil de manipular elementos da Tela*/
+    flex-direction: row; /*o default é `column`*/
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px; /* Mantém o padding que estava no body, mas agora só no header */
+    max-width: 1300px; /* Limita a largura do conteúdo do header */
+    margin: 0 auto;  /* Centraliza o conteúdo do header */
+    width: 100%; /* Centraliza o conteúdo do header */  
+}
+
+header::after {
+    content: ''; /* Propriedade obrigatória para pseudo-elementos */
+    position: absolute; /* Posição absoluta em relação ao 'header' (que é 'relative') */
+    bottom: 0; /* Alinha a linha na parte inferior do header */
+    left: 0; /* Alinha a linha na esquerda */
+    width: 100vw; /* Ocupa 100% da largura da viewport (tela) */
+    height: 1px; /* Espessura da linha */
+    background-color: rgba(192, 90, 189, 0.5); /* A cor da sua linha */
+    /* Você pode usar a mesma cor que a borda do footer */
+
+    /* Opcional: Centralizar a linha */
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* Agora, vamos garantir que o body ou html não tenham overflow-x indesejado */
+body, html {
+    overflow-x: hidden; /* Isso é importante para evitar barras de rolagem horizontais por causa do width: 100vw */
+}
+
+
+#title {/*Elementos do titulo, no caso `WFaria Desenvolvedor`*/
+    flex-direction: column;
+    line-height: 10px;
+}
+#title img {
+    max-width: 180px; /* Isso faz a logo nunca ser maior que o espaço disponível. Se o espaço encolher, ela encolhe. */
+    height: auto; /* ESSENCIAL: Isso faz a logo manter a proporção original. Ela não vai esticar ou achatar. */
+    display: block; /* Ajuda a logo a se comportar melhor no layout, especialmente com margens. */
+}
+
+@media (max-width: 768px) { /* Para telas até 768px (tablets e smartphones) */
+    #title img {
+        max-width: 150px; /* Tamanho menor para telas menores */
+    }
+}
+
+@media (max-width: 480px) { /* Para telas até 480px (smartphones pequenos) */
+    #title img {
+        max-width: 100px; /* Tamanho ainda menor para telas muito pequenas */
+    }
+}
+
+li {
+    display: inline-block; /*por default é `block`, inline-block deixa os elementos em Linha*/
+    margin: 20px; /*Usar `margin` (margem) e não `padding` (espaçamento) */
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: rgb(192, 90, 189);
+    transition: 0.3s all;
+    
+}
+
+#ola-bem-vindo {
+    color: rgb(192, 90, 189);
+
+     /* Animação para o "Olá" */
+    animation: fadeIn 3.0s ease-out forwards; /* Nome da animação, duração, curva de tempo, manter estado final */
+    /* Se quiser slideInUp, troque fadeIn por slideInUp */
+    /* animation: slideInUp 0.8s ease-out forwards; */
+}
+
+#introducao {
+    font-size: 1.3rem;
+
+    /* Animação para o parágrafo, com um pequeno atraso */
+    animation: fadeIn 3.0s ease-out forwards; /* 0.3s de atraso antes de começar */
+    /* Se quiser slideInUp, troque fadeIn por slideInUp */
+    /* animation: slideInUp 0.8s ease-out 0.3s forwards; */
+}
+
+#img-linkedin:hover {
+    opacity: 80%;
+}
+
+#img-whatsapp:hover {
+    opacity: 80%;
+}
+
+
+.icon-linkedin,
+.icon-whatsapp {
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;   
+}
+
+h1 { 
+     font-weight: 300; /*Força da fonte, no caso deixar mais fina ou grossa/bold etc*/
+}
+
+/* --- ESTILOS GERAIS PARA O CONTEÚDO PRINCIPAL (MAIN) --- */
+
+main {
+    flex-grow: 1; /* Faz o main crescer e empurrar o footer para baixo */
+    display: flex; /* Define o main como um contêiner flexível */
+    flex-direction: row; /* Padrão: itens lado a lado em desktops */
+    margin-top: 50px auto; /* Centraliza o conteúdo e dá margem superior/inferior */
+    padding: 15px; /* Mantém o padding que estava no body, mas agora só no main */
+    max-width: 1300px; /* Limita a largura do conteúdo do main */
+    margin-left: auto;  /* Centraliza o main, já que margin-top já está ali */
+    margin-right: auto;
+   /* Centraliza a aside e o article horizontalmente dentro do main */
+    align-items: center;/* Centraliza a aside e o article verticalmente */
+    gap: 30px;
+}
+
+/* --- ESTILOS PARA AS SEÇÕES aside e article na index.html --- */
+
+aside {
+    width: 40%; /* Largura em telas grandes */
+    text-align: left;
+    padding: 20px; /* Espaçamento interno */
+}
+
+article {
+    width: 50%; /* Largura em telas grandes */
+    text-align: right; /* Alinhamento da imagem do desenvolvedor */
+}
+
+article img {
+    max-width: 100%; /* GARANTE QUE A IMAGEM NUNCA ULTRAPASSE O CONTÊINER */
+    height: auto; /* MANTÉM A PROPORÇÃO DA IMAGEM */
+    display: block; /* Ajuda no controle de margens e alinhamento */
+}
+
+h2 {
+    font-size: 45px;
+    line-height: 10px;
+    font-family: poppinsmedium;
+}
+
+p {
+    line-height: 20px;
+    max-width: 500px; /* Isso é para o parágrafo individual, não o main */
+    font-family: poppinslight;
+}
+
+img {
+    width: 620px; /* Atenção: esta largura pode fazer a imagem sair do max-width do main em telas menores */
+    max-width: 100%; /* Boa prática para imagens dentro de containers com largura limitada */
+    height: auto; /* Evita que a imagem distorça quando a largura é limitada */
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: rgb(40, 42, 44);
+    padding: 10px 0; /* Padding superior/inferior de 10px, lateral de 0 */
+    width: 100%; /* Garante que o footer ocupe 100% da largura do body */
+}
+
+footer p {
+    margin: 0 10px;
+}
+footer a {
+    text-decoration: none;
+    transition: 0.3 all;
+}
+
+/* [ ESTILOS PARA O MENU HAMBÚRGUER E MOBILE ] */
+
+/* Esconde o ícone do hambúrguer por padrão em telas grandes */
+.menu-toggle {
+    display: none; /* Esconde o ícone */
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    padding: 5px;
+    z-index: 1000; /* Garante que o hambúrguer esteja acima de outros elementos */
+}
+
+.menu-toggle .bar {
+    width: 100%;
+    height: 3px;
+    background-color: white; /* Cor dos traços do hambúrguer */
+    border-radius: 5px;
+    transition: all 0.3s ease; /* Transição suave para a animação do X */
+}
+
+/* --- RESPONSIVIDADE COM MEDIA QUERIES --- */
+
+@media (max-width: 768px) { /* Para telas de até 768px (smartphones e tablets pequenos) */
+    main {
+        flex-direction: column; /* Faz aside e article empilharem em telas menores */
+        padding: 20px; /* Ajusta o padding para telas menores */
+        margin: 30px auto; /* Ajusta margem para mobile */
+    }
+
+    aside, article {
+        width: 90%; /* Ocupa a maior parte da largura em mobile */
+        max-width: 500px; /* Limite para não ficar gigante em tablets */
+        text-align: center; /* Centraliza o texto e os ícones */
+        
+        /* Ajustes de espaçamento para as seções em mobile */
+        padding: 25px; /* AUMENTADO: Mais padding interno para as seções */
+        margin: 20px auto; /* AUMENTADO: Mais margem entre as seções quando empilhadas */
+        box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura/altura total */
+    }
+
+    /* Reduz o tamanho das fontes para melhor legibilidade em mobile */
+    #ola-bem-vindo {
+        font-size: 2.2rem; /* Exemplo: reduzir o tamanho do título */
+        margin-bottom: 15px; /* Adiciona espaço abaixo do título "Olá" */
+    }
+
+    #introducao {
+        font-size: 1.1rem; /* Exemplo: reduzir o tamanho do parágrafo */
+        line-height: 1.5; /* Melhora a legibilidade de parágrafos longos */
+        margin-bottom: 25px; /* Adiciona espaço abaixo do parágrafo */
+    }
+
+    /* Ajuste o tamanho dos ícones de contato se eles parecerem muito grandes */
+    #img-linkedin, #img-whatsapp { 
+        width: 45px; /* Ajuste de Largura*/
+        height: 45px; /* Ajuste de Altura*/
+        margin: 0 10px; /* Adiciona 10px de margem horizontal entre os ícones */
+        display: inline-block; /* Garante que a margem horizontal funcione */
+    }
+
+    /* Ajuste fino para a imagem do desenvolvedor se for necessário */
+    article img {
+        max-width: 90%; /* Pode reduzir um pouco mais a imagem em telas muito pequenas */
+        margin-top: 20px; /* Adiciona um espaço acima da imagem se estiver muito próxima do texto */
+    }
+}
+
+/* Esconder a navegação padrão em telas pequenas e mostrar o hambúrguer */
+@media (max-width: 768px) { /* Ponto de interrupção: tablets e smartphones */
+    header {
+        /* Garanta que o header ainda seja flex para alinhar logo e hambúrguer */
+        justify-content: space-between; /* Espaçamento entre logo e hambúrguer */
+    }
+
+    #nav-menu { /* O menu de navegação principal */
+        display: flex; /* Para mobile, ele vai ser um menu flutuante */
+        flex-direction: column; /* Links um abaixo do outro */
+        position: fixed; /* Fixa o menu na tela */
+        top: 0;
+        right: -100%; /* Começa escondido à direita da tela */
+        width: 100%; /* Ocupa a largura total da tela */
+        height: 100%; /* Ocupa a altura total da tela */
+        background-color: rgba(34, 34, 34, 0.95); /* Fundo escuro com um pouco de transparência */
+        justify-content: center;
+        align-items: center;
+        transition: right 0.3s ease-in-out; /* Transição para o menu aparecer/desaparecer */
+        z-index: 999; /* Fica abaixo do hambúrguer, mas acima do conteúdo */
+    }
+
+    #nav-menu ul {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 0;
+        list-style: none;
+    }
+
+    #nav-menu ul li {
+        margin: 20px 0; /* Espaço entre os itens do menu */
+        font-size: 1.5rem; /* Aumenta o tamanho da fonte para mobile */
+    }
+
+    #nav-menu ul a {
+        color: white; /* Cor dos links */
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    #nav-menu ul a:hover {
+        color: rgb(192, 90, 189); /* Cor de destaque ao passar o mouse */
+    }
+
+    /* Mostrar o ícone do hambúrguer em telas pequenas */
+    .menu-toggle {
+        display: flex; /* Mostra o ícone */
+    }
+
+    /* Quando o menu está "ativo" (aberto) */
+    #nav-menu.active {
+        right: 0; /* Desliza para a posição visível */
+    }
+
+    /* Animação do X no hambúrguer */
+    .menu-toggle.active .bar:nth-child(1) {
+        transform: translateY(11px) rotate(45deg);
+    }
+    .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0; /* Esconde a barra do meio */
+    }
+    .menu-toggle.active .bar:nth-child(3) {
+        transform: translateY(-11px) rotate(-45deg);
+    }
+}
+
+/* [ ANIMACOES ABAIXO ]*/
+
+/* Animação para aparecer e subir um pouco */
+@keyframes slideInUp {
+    from {
+        opacity: 0; /* Começa totalmente invisível */
+        transform: translateY(20px); /* Começa 20px abaixo da posição final */
+    }
+    to {
+        opacity: 1; /* Termina totalmente visível */
+        transform: translateY(0); /* Termina na posição original */
+    }
+}
+
+/* Animação para aparecer e deslizar para a direita (opcional, se preferir) */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px); /* Começa 20px à esquerda */
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animação para aparecer suavemente (fade-in) */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
